@@ -1,0 +1,586 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// State functions
+void State1(string w, int i);
+void State2(string w, int i);
+void State3(string w, int i);
+void State4(string w, int i);
+
+void State1(string w, int i) {
+    cout << "State 1" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl;
+        return;
+    }
+    if (w[i] == '0')
+        State1(w, i + 1);
+    else if (w[i] == '1')
+        State2(w, i + 1);
+}
+
+void State2(string w, int i) {
+    cout << "State 2" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl;
+        return;
+    }
+    if (w[i] == '0')
+        State1(w, i + 1);
+    else if (w[i] == '1')
+        State3(w, i + 1);
+}
+
+void State3(string w, int i) {
+    cout << "State 3" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl;
+        return;
+    }
+    if (w[i] == '0')
+        State1(w, i + 1);
+    else if (w[i] == '1')
+        State4(w, i + 1);
+}
+
+void State4(string w, int i) {
+    cout << "State 4" << endl;
+    if (i == w.length()) {
+        cout << "String is accepted" << endl;
+        return;
+    }
+    State4(w, i + 1);
+}
+
+int main() {
+    string w;
+    cout << "Enter the string: ";
+    cin >> w;
+    State1(w, 0);
+    return 0;
+}
+
+//PRAC2
+#include <iostream>
+#include <string>
+using namespace std;
+
+void State1(string w, int i);
+void State2(string w, int i);
+void State3(string w, int i);
+void State4(string w, int i);
+void State5(string w, int i);
+
+void State1(string w, int i) {
+    cout << "State 1" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl;
+        return;
+    }
+    if (w[i] == '0')
+        State1(w, i + 1);
+    else if (w[i] == '1')
+        State2(w, i + 1);
+}
+
+void State2(string w, int i) {
+    cout << "State 2" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl;
+        return;
+    }
+    if (w[i] == '0')
+        State2(w, i + 1);
+    else if (w[i] == '1')
+        State3(w, i + 1);
+}
+
+void State3(string w, int i) {
+    cout << "State 3" << endl;
+    if (i == w.length()) {
+        cout << "String is accepted" << endl; // Exactly 2 `1`s
+        return;
+    }
+    if (w[i] == '0')
+        State3(w, i + 1);
+    else if (w[i] == '1')
+        State4(w, i + 1);
+}
+
+void State4(string w, int i) {
+    cout << "State 4" << endl;
+    if (i == w.length()) {
+        cout << "String is accepted" << endl; // Exactly 3 `1`s
+        return;
+    }
+    if (w[i] == '0')
+        State4(w, i + 1);
+    else if (w[i] == '1')
+        State5(w, i + 1);
+}
+
+void State5(string w, int i) {
+    cout << "State 5" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl; // More than 3 `1`s
+        return;
+    }
+    State5(w, i + 1);
+}
+
+int main() {
+    string w;
+    cout << "Enter the string: ";
+    cin >> w;
+    State1(w, 0);
+    return 0;
+}
+
+\\PRAC3
+#include <iostream>
+#include <string>
+using namespace std;
+
+void State1(string w, int i);
+void State2(string w, int i);
+void State3(string w, int i, char first);
+void State4(string w, int i, char first, char second);
+void State5(string w, int i);
+void State6(string w, int i);
+
+void State1(string w, int i) {
+    cout << "State 1" << endl;
+    State2(w, i);
+}
+
+void State2(string w, int i) {
+    cout << "State 2" << endl;
+    char first = w[i];
+    State3(w, i + 1, first);
+}
+
+void State3(string w, int i, char first) {
+    cout << "State 3" << endl;
+    char second = w[i];
+    State4(w, i + 1, first, second);
+}
+
+void State4(string w, int i, char first, char second) {
+    cout << "State 4" << endl;
+    if (i >= w.length() - 2) {
+        if (w[i] == first && w[i + 1] == second)
+            State5(w, i + 2);
+        else
+            State6(w, i + 2);
+    } else {
+        State4(w, i + 1, first, second);
+    }
+}
+
+void State5(string w, int i) {
+    cout << "State 5" << endl;
+    cout << "String is accepted" << endl;
+}
+
+void State6(string w, int i) {
+    cout << "State 6" << endl;
+    cout << "String is rejected" << endl;
+}
+
+int main() {
+    string w;
+    cout << "Enter the string: ";
+    cin >> w;
+    if (w.length() < 4) {
+        cout << "String is rejected" << endl;
+        return 0;
+    }
+    State1(w, 0);
+    return 0;
+}
+
+\\PRAC4
+#include <iostream>
+#include <string>
+using namespace std;
+
+void State1(string w, int i);
+void State2(string w, int i);
+void State3(string w, int i);
+void State4(string w, int i);
+
+void State1(string w, int i) {
+    cout << "State 1" << endl;
+    if (i >= w.length()) {
+        cout << "String is rejected" << endl;
+        return;
+    }
+    if (w[i] == 'a')
+        State2(w, i + 1);
+    else
+        cout << "String is rejected" << endl;
+}
+
+void State2(string w, int i) {
+    cout << "State 2" << endl;
+    if (i >= w.length()) {
+        cout << "String is rejected" << endl;
+        return;
+    }
+    if (w[i] == 'a' || w[i] == 'b')
+        State3(w, i + 1);
+    else
+        cout << "String is rejected" << endl;
+}
+
+void State3(string w, int i) {
+    cout << "State 3" << endl;
+    if (i >= w.length()) {
+        cout << "String is rejected" << endl;
+        return;
+    }
+    if (w[i] == 'a')
+        State3(w, i + 1);
+    else if (w[i] == 'b')
+        State4(w, i + 1);
+    else
+        cout << "String is rejected" << endl;
+}
+
+void State4(string w, int i) {
+    cout << "State 4" << endl;
+    if (i == w.length()) {
+        cout << "String is accepted" << endl;
+    } else {
+        cout << "String is rejected" << endl;
+    }
+}
+
+int main() {
+    string w;
+    cout << "Enter the string: ";
+    cin >> w;
+    State1(w, 0);
+    return 0;
+}
+
+\\PRAC5
+#include <iostream>
+#include <string>
+using namespace std;
+
+void State1(string w, int i);
+void State2(string w, int i);
+void State3(string w, int i);
+void State4(string w, int i);
+
+void State1(string w, int i) {
+    cout << "State 1" << endl;
+    if (i == w.length()) {
+        cout << "String is accepted" << endl; // Both counts even
+        return;
+    }
+    if (w[i] == 'a')
+        State2(w, i + 1);
+    else if (w[i] == 'b')
+        State3(w, i + 1);
+}
+
+void State2(string w, int i) {
+    cout << "State 2" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl; // Odd 'a'
+        return;
+    }
+    if (w[i] == 'a')
+        State1(w, i + 1);
+    else if (w[i] == 'b')
+        State4(w, i + 1);
+}
+
+void State3(string w, int i) {
+    cout << "State 3" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl; // Odd 'b'
+        return;
+    }
+    if (w[i] == 'a')
+        State4(w, i + 1);
+    else if (w[i] == 'b')
+        State1(w, i + 1);
+}
+
+void State4(string w, int i) {
+    cout << "State 4" << endl;
+    if (i == w.length()) {
+        cout << "String is rejected" << endl; // Both odd
+        return;
+    }
+    if (w[i] == 'a')
+        State3(w, i + 1);
+    else if (w[i] == 'b')
+        State2(w, i + 1);
+}
+
+int main() {
+    string w;
+    cout << "Enter the string: ";
+    cin >> w;
+    State1(w, 0);
+    return 0;
+}
+
+\\PRAC6
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Function prototypes
+bool simulate_FA_L1(string w, int i);
+bool simulate_FA_L2(string w, int i);
+void simulate_union(string w);
+void simulate_intersection(string w);
+void simulate_concatenation(string w);
+
+// Simulate union of L1 and L2
+void simulate_union(string w) {
+    if (simulate_FA_L1(w, 0) || simulate_FA_L2(w, 0)) {
+        cout << "String is accepted by union of L1 and L2" << endl;
+    } else {
+        cout << "String is rejected by union of L1 and L2" << endl;
+    }
+}
+
+// Simulate intersection of L1 and L2
+void simulate_intersection(string w) {
+    if (simulate_FA_L1(w, 0) && simulate_FA_L2(w, 0)) {
+        cout << "String is accepted by intersection of L1 and L2" << endl;
+    } else {
+        cout << "String is rejected by intersection of L1 and L2" << endl;
+    }
+}
+
+// Simulate concatenation of L1 and L2
+void simulate_concatenation(string w) {
+    for (int i = 1; i <= w.length(); i++) {
+        string prefix = w.substr(0, i);
+        string suffix = w.substr(i);
+        if (simulate_FA_L1(prefix, 0) && simulate_FA_L2(suffix, 0)) {
+            cout << "String is accepted by concatenation of L1 and L2" << endl;
+            return;
+        }
+    }
+    cout << "String is rejected by concatenation of L1 and L2" << endl;
+}
+
+// Simulating FA for L1 (example: accepts strings with even length)
+bool simulate_FA_L1(string w, int i) {
+    return w.length() % 2 == 0; // Placeholder for actual FA simulation logic
+}
+
+// Simulating FA for L2 (example: accepts strings ending in 'b')
+bool simulate_FA_L2(string w, int i) {
+    return !w.empty() && w[w.length() - 1] == 'b'; // Placeholder for actual FA simulation logic
+}
+
+int main() {
+    string w;
+    cout << "Enter the string: ";
+    cin >> w;
+
+    simulate_union(w);
+    simulate_intersection(w);
+    simulate_concatenation(w);
+
+    return 0;
+}
+
+\\PRAC7
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+// Function to simulate PDA for L = {a^n b^n | n > 0}
+bool simulate_PDA(string w) {
+    stack<char> st; // Stack for the PDA
+    int i = 0;      // Input pointer
+
+    // Reading 'a's and pushing onto the stack
+    while (i < w.length() && w[i] == 'a') {
+        st.push('a');
+        i++;
+    }
+
+    // Transition to processing 'b's
+    while (i < w.length() && w[i] == 'b') {
+        if (st.empty()) {
+            return false; // More 'b's than 'a's
+        }
+        st.pop();
+        i++;
+    }
+
+    // Accept if stack is empty and all input is processed
+    return st.empty() && i == w.length();
+}
+
+int main() {
+    string w;
+    cout << "Enter a string: ";
+    cin >> w;
+
+    if (simulate_PDA(w)) {
+        cout << "The string is accepted by the PDA." << endl;
+    } else {
+        cout << "The string is rejected by the PDA." << endl;
+    }
+
+    return 0;
+}
+
+\\PRAC8
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+// Function to simulate PDA for L = {wXw^R | w is a string, X is a special symbol}
+bool simulate_PDA(string w) {
+    stack<char> st;
+    int i = 0; // Input pointer
+
+    // Step 1: Push characters of 'w' onto the stack until 'X' is found
+    while (i < w.length() && w[i] != 'X') {
+        st.push(w[i]);
+        i++;
+    }
+
+    // Step 2: If 'X' not found, reject the string
+    if (i == w.length() || w[i] != 'X') {
+        return false;
+    }
+
+    // Step 3: Move past the 'X'
+    i++;
+
+    // Step 4: Match characters in reverse order with the stack
+    while (i < w.length()) {
+        if (st.empty() || st.top() != w[i]) {
+            return false; // Mismatch found
+        }
+        st.pop();
+        i++;
+    }
+
+    // Step 5: Accept if stack is empty and all input is processed
+    return st.empty();
+}
+
+int main() {
+    string w;
+    cout << "Enter a string: ";
+    cin >> w;
+
+    if (simulate_PDA(w)) {
+        cout << "The string is accepted by the PDA." << endl;
+    } else {
+        cout << "The string is rejected by the PDA." << endl;
+    }
+
+    return 0;
+}
+
+\\PRAC9
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Function to simulate the Turing Machine
+bool simulate_TM(string tape) {
+    int i = 0; // Tape pointer
+    int length = tape.length();
+
+    while (true) {
+        // State q0: Find 'a' and mark it as 'X'
+        while (i < length && tape[i] != 'a' && tape[i] != 'Y' && tape[i] != 'Z') i++;
+        if (i >= length) break; // No 'a' found, exit loop
+        if (tape[i] == 'a') {
+            tape[i] = 'X';
+            i++;
+        } else {
+            return false; // Invalid symbol order
+        }
+
+        // State q1: Find 'b' and mark it as 'Y'
+        while (i < length && tape[i] != 'b' && tape[i] != 'Z') i++;
+        if (i >= length || tape[i] != 'b') return false; // 'b' not found
+        tape[i] = 'Y';
+        i++;
+
+        // State q2: Find 'c' and mark it as 'Z'
+        while (i < length && tape[i] != 'c') i++;
+        if (i >= length || tape[i] != 'c') return false; // 'c' not found
+        tape[i] = 'Z';
+
+        // Move back to the start of the tape
+        i = 0;
+    }
+
+    // Check if the tape contains only 'X', 'Y', and 'Z'
+    for (char ch : tape) {
+        if (ch != 'X' && ch != 'Y' && ch != 'Z') return false;
+    }
+
+    return true;
+}
+
+int main() {
+    string tape;
+    cout << "Enter a string: ";
+    cin >> tape;
+
+    if (simulate_TM(tape)) {
+        cout << "The string is accepted by the Turing Machine." << endl;
+    } else {
+        cout << "The string is rejected by the Turing Machine." << endl;
+    }
+
+    return 0;
+}
+
+\\PRAC10
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Function to simulate the Turing Machine
+string incrementBinary(string tape) {
+    int i = tape.length() - 1; // Start from the rightmost bit
+
+    // Step 1: Process the tape from right to left
+    while (i >= 0) {
+        if (tape[i] == '0') {
+            tape[i] = '1'; // No carry needed
+            return tape;   // Return the result
+        } else if (tape[i] == '1') {
+            tape[i] = '0'; // Carry over
+        }
+        i--; // Move left
+    }
+
+    // Step 2: If carry propagates to the start, prepend '1'
+    return "1" + tape;
+}
+
+int main() {
+    string tape;
+    cout << "Enter a binary number: ";
+    cin >> tape;
+
+    string result = incrementBinary(tape);
+    cout << "The incremented binary number is: " << result << endl;
+
+    return 0;
+}
