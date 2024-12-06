@@ -1,3 +1,41 @@
+Suggested List:
+
+1. Design a Finite Automata (FA) that accepts all strings over 2={0, 1} having three consecutive l's as a substring. Write a program to simulate this FA.
+
+2. Design a Finite Automata (FA) that accepts all strings over 2={0, 1} having either exactly two 1's or exactly three 1's, not more nor less. Write a program to simulate this FA.
+
+3. Design a Finite Automata (FA) that accepts language L1, over 2={a, b), comprising of all strings (of length 4 or more) having first two characters same as the last two. Write a program to simulate this FA.
+
+4. Design a Finite Automata (FA) that accepts language L2, over 2= {a, b} where L2= a(a+b)*b. Write a program to simulate this FA.
+
+5. Design a Finite Automata (FA) that accepts language EVEN-EVEN over 2={a, b}. Write a program to simulate this FA
+
+6. Write a program to simulate an FA that accepts
+
+a. Union of the languages L₁ and L2
+
+b. Intersection of the languages L₁ and L2
+
+c. Language L1 L2 (concatenation)
+
+Section B
+
+(The students should be given a context free language for designing and simulating PDA. The machine is to be simulated using C++/Java.)
+
+Suggested List:
+
+7. Design a PDA and write a program for simulating the machine which accepts the language {a"b" where n>0, 2= {a,b}}.
+
+8. Design a PDA and write a program for simulating the machine which accepts the language {wXw w is any string over 2={a, b} and w² is reverse of that string and X is a special symbol}.
+
+Section C
+
+(The students should be given a language for designing and simulating Turing machine. The machine is to be simulated using C++/Java.)
+
+Suggested List:
+
+9. Design and simulate a Turing Machine that accepts the language a"b"c" where n >0.
+
 #include <iostream>
 #include <string>
 using namespace std;
