@@ -36,6 +36,7 @@ Suggested List:
 
 9. Design and simulate a Turing Machine that accepts the language a"b"c" where n >0.
 
+10. Design and simulate a Turing Machine which will increment the given binary number by 1.
 #include <iostream>
 #include <string>
 using namespace std;
